@@ -26,10 +26,18 @@ bool init();
 bool deinit();
 int str_len(const char* str);
 void print(const char* str);
+int char_to_int(char ch);
 
 #if defined(MICROSOFT_COMPILER)
 #pragma execution_character_set("utf-8")
 #endif
+
+int char_to_int(char ch)
+{
+    int n = ch - 48;
+    if (n < 0 || n > 9) return -1;
+    return n;
+}
 
 #if defined(SYSTEM_WINDOWS)
 #include <Windows.h>
