@@ -16,7 +16,10 @@
 
 #define true 1
 #define false 0
+
 typedef int bool;
+typedef char byte;
+typedef void (*on_key_input)(int, int);
 
 bool init();
 bool deinit();
