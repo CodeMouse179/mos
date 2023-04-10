@@ -24,9 +24,9 @@ typedef void (*on_key_input)(int, int);
 
 bool init();
 bool deinit();
-int str_len(const char* str);
 void print(const char* str);
 int char_to_int(char ch);
+int str_len(const char* str);
 
 #if defined(MICROSOFT_COMPILER)
 #pragma execution_character_set("utf-8")
@@ -37,6 +37,17 @@ int char_to_int(char ch)
     int n = ch - 48;
     if (n < 0 || n > 9) return -1;
     return n;
+}
+
+int str_len(const char* str)
+{
+    int length = 0;
+    while (*str)
+    {
+        length++;
+        str++;
+    }
+    return length;
 }
 
 #if defined(SYSTEM_WINDOWS)
@@ -54,22 +65,28 @@ bool deinit()
     BOOL ret = SetConsoleOutputCP(console_output_cp);
     return ret;
 }
-int str_len(const char* str)
-{
-    int length = 0;
-    while (*str)
-    {
-        length++;
-        str++;
-    }
-    return length;
-}
 void print(const char* str)
 {
     HANDLE std_output_handle = GetStdHandle(STD_OUTPUT_HANDLE);
     if (std_output_handle == INVALID_HANDLE_VALUE || std_output_handle == NULL) return;
     DWORD written;
     WriteConsoleA(std_output_handle, str, str_len(str), &written, NULL);
+}
+#endif
+
+#if defined(SYSTEM_POSIX)
+#include <unistd.h>
+bool init()
+{
+    return true;
+}
+bool deinit()
+{
+    return true;
+}
+void print(const char* str)
+{
+    write(STDOUT_FILENO, str, str_len(str));
 }
 #endif
 
