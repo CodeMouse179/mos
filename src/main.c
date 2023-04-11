@@ -20,7 +20,20 @@
 
 typedef int bool;
 typedef char byte;
+typedef unsigned short ushort;
 typedef void (*on_key_input)(int, int);
+
+typedef struct _TIME
+{
+    ushort year;
+    ushort month;
+    ushort day_of_week;
+    ushort day;
+    ushort hour;
+    ushort minute;
+    ushort second;
+    ushort milli_second;
+} TIME;
 
 bool init();
 bool deinit();
