@@ -4,6 +4,7 @@ Debug
 Release
 MinSizeRel
 RelWithDebInfo
+Makefile
 CMakeFiles
 CMakeCache.txt
 cmake_install.cmake
@@ -12,6 +13,7 @@ cmake_install.cmake
 /ALL_BUILD.vcxproj.user
 /ZERO_CHECK.vcxproj
 /ZERO_CHECK.vcxproj.filters
+/mos
 /mos.dir
 /mos.sln
 /mos.vcxproj
