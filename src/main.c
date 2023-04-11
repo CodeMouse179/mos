@@ -38,6 +38,7 @@ typedef struct _TIME
 bool init();
 bool deinit();
 void print(const char* str);
+void get_local_time(TIME* time_ptr);
 int char_to_int(char ch);
 int str_len(const char* str);
 
@@ -85,6 +86,19 @@ void print(const char* str)
     DWORD written;
     WriteConsoleA(std_output_handle, str, str_len(str), &written, NULL);
 }
+void get_local_time(TIME* time_ptr)
+{
+    SYSTEMTIME system_time;
+    GetLocalTime(&system_time);
+    time_ptr->year = system_time.wYear;
+    time_ptr->month = system_time.wMonth;
+    time_ptr->day_of_week = system_time.wDayOfWeek;
+    time_ptr->day = system_time.wDay;
+    time_ptr->hour = system_time.wHour;
+    time_ptr->minute = system_time.wMinute;
+    time_ptr->second = system_time.wSecond;
+    time_ptr->milli_second = system_time.wMilliseconds;
+}
 #endif
 
 #if defined(SYSTEM_POSIX)
@@ -106,6 +120,8 @@ void print(const char* str)
 int main(int argc, char** argv)
 {
     init();
+    TIME time;
+    get_local_time(&time);
     print("你好，世界😄hello, world\n");
     deinit();
     return 0;
